@@ -9,19 +9,22 @@ colores = ['black', 'green', 'blue', 'yellow', 'orange']
 colorVibora = colores[0]
 colorComida = colores[0]
 while colorVibora == colorComida:
-    colorVibora = colores[randrange(0,4)]
-    colorComida = colores[randrange(0,4)]
+    colorVibora = colores[randrange(0, 4)]
+    colorComida = colores[randrange(0, 4)]
 
-def change(x, y):
+
+def change(x, y):  # esto hace que cambie la direccion que toma la serpiente
     "Change snake direction."
     aim.x = x
     aim.y = y
+
 
 def inside(head):
     "Return True if head inside boundaries."
     return -200 < head.x < 190 and -200 < head.y < 190
 
-def move():
+
+def move():  # mueve a la serpiente un cuadrante
     "Move snake forward one segment."
     head = snake[-1].copy()
     head.move(aim)
@@ -33,7 +36,7 @@ def move():
 
     snake.append(head)
 
-    if head == food:
+    if head == food:  # tamaño
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
@@ -42,35 +45,22 @@ def move():
 
     clear()
 
-    for body in snake:
+    for body in snake:  # cambiar color
         square(body.x, body.y, 9, colorVibora)
 
     square(food.x, food.y, 9, colorComida)
     update()
     ontimer(move, 100)
 
-def moveFood():
-    #direccion = randrange(-1,2)
-    nuevaPosicion = 17
-    while nuevaPosicion > 15 or nuevaPosicion < -15:
-        direccion = randrange(-1,2)
-        if direccion == -1:
-            food.x = (food.x - 1)*10
-            nuevaPosicion = food.x-1
-        elif direccion == 2:
-            food.x = (food.x + 1)*10
-            nuevaPosicion = food.x+1
-        elif direccion == 0:
-            food.y = (food.y - 1)*10
-            nuevaPosicion = food.y-1
-        elif direccion == 1:
-            food.y = (food.y + 1)*10
-            nuevaPosicion = food.y+1
-            
+
+def moveFood():  # mueeve comida
+    food.x = randrange(-10, 11, 20)
+    food.y = randrange(-10, 11, 20)
+
     update()
-    ontimer(moveFood,100)
-        
-        
+    ontimer(moveFood, 500)
+
+
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
